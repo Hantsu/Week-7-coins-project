@@ -1,0 +1,70 @@
+/******************************************************************************
+Filename:       MaxTaylor_Week7Assignment_Coins.cpp
+Author:         Max Taylor
+Date            2/23/19
+
+void compute_coins(int coin_value, int& num, int& amount_left);
+//Precondition: 0 < coin_value < 100; 0 <= amount_left < 100.
+//Postcondition: num has been set equal to the maximum number of coins of denomination coin_value cents that can be obtained
+                from amount_left. Additionally, amount_left has been decreased by the value of the coins, that is, decreased by num * coin_value.
+*******************************************************************************/
+#include <iostream>     // for cout, cin, etc
+using namespace std;   // for std::
+
+//function prototypes
+void intro();
+void getCoin(int& amountLeft);      // User inputs amount of change in cents, while between 1-99
+void computeCoins(int coinValue, int& number, int& amountLeft);      //computes the coins with x coin_value for quarters, dimes, etc (excluding nickels and half dollars);
+void output();
+
+int main()
+{
+    intro();
+    output();
+    
+    return 0;
+}
+void intro(){
+    cout << "This program will tell you what coins to give out for a certain amount of change (.1-.99)\n";
+}
+void computeCoins(int coin_value, int& number, int& amountLeft){
+    number = amountLeft / coin_value; //num has been set equal to the max num of coins of coin_value cents that can be got from amountLeft
+    amountLeft = amountLeft - number * coin_value; // amountleft has been decreased by the value of the coins
+}
+
+void getCoin(int& amountLeft){
+    do {        // repeat asking for change amount while input is outside of range.
+        cout << "Enter an amount of change within the range 1 to 99: ";
+        cin >> amountLeft;
+    } while(amountLeft < 1 || amountLeft > 99);      //while amount is less than 1, or higher than 99 (out of range).
+}
+
+void output(){
+    int amountLeft, number;
+	char again;
+	do  //run , repeat if 
+	{
+		getCoin(amountLeft);    //Call getCoin function
+		
+		cout << amountLeft << " cents can be given as \n";
+		
+		computeCoins(25, number, amountLeft); // compute math for quarters (25)
+		cout << number << " quarter(s) \n";
+		
+		computeCoins(10, number, amountLeft); //compute math for dimes (10)
+		cout << number << " dime(s) \n";
+		
+		cout << "and " <<  amountLeft << " pennies\n" << endl;
+		
+		
+		cout << "Do you want to continue again?(Y/N): \n";
+		cin >> again;
+		cout << endl;
+	}while(again == 'Y' || again == 'y');        //while Again char == Y/y for Yes, repeat
+}
+
+
+
+
+
+
